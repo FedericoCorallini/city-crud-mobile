@@ -1,4 +1,4 @@
-package com.example.capital_cities.ui.theme
+package com.example.capital_cities.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
