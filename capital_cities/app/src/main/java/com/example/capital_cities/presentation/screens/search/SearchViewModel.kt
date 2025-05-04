@@ -19,10 +19,10 @@ class SearchViewModel @Inject constructor(
 
     fun onEvent(event: SearchEvent) {
         when(event) {
-            is SearchEvent.ChangeCountry -> onCountryChange(event.country)
+            is SearchEvent.ChangeName -> onCountryChange(event.name)
             SearchEvent.Search -> {
                 viewModelScope.launch {
-                    searchCapitalUseCase(state.country).collectLatest {
+                    searchCapitalUseCase(state.name).collectLatest {
                         state = state.copy(capitalList = it)
                     }
                 }
@@ -30,7 +30,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    private fun onCountryChange(country : String) {
-        state = state.copy(country = country)
+    private fun onCountryChange(name : String) {
+        state = state.copy(name = name)
     }
 }

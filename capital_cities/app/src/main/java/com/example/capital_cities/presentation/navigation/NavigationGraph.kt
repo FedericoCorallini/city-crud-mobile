@@ -12,7 +12,7 @@ import com.example.capital_cities.presentation.screens.search.SearchScreen
 @Composable
 fun NavigationGraph() {
    val navController = rememberNavController()
-   NavHost(navController = navController, startDestination = Insert) {
+   NavHost(navController = navController, startDestination = Home) {
       composable<Home> {
          HomeScreen(navController = navController)
       }

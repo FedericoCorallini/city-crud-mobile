@@ -8,12 +8,12 @@ import javax.inject.Inject
 class SearchCapitalUseCase @Inject constructor(
     private val capitalRepository: CapitalRepository
 ) {
-    operator fun invoke(country : String) : Flow<List<Capital>> {
-        return if(country == ""){
+    operator fun invoke(name : String) : Flow<List<Capital>> {
+        return if(name == ""){
             capitalRepository.getAllCapitals()
         }
         else{
-            capitalRepository.getCapitalsByCountry(country)
+            capitalRepository.getCapitalsByName(name)
         }
     }
 }

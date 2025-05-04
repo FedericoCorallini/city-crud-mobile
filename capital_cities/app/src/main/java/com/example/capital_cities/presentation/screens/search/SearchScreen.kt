@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.capital_cities.domain.model.Capital
+import com.example.capital_cities.presentation.components.CapitalCard
 import com.example.capital_cities.presentation.components.NavBar
 import com.example.capital_cities.presentation.components.TopBar
 import com.example.capital_cities.presentation.theme.Capital_citiesTheme
@@ -48,8 +49,8 @@ fun SearchContent(state: SearchState, event: (SearchEvent) -> Unit, navControlle
         LazyColumn(modifier = Modifier.padding(it)) {
             item {
                     OutlinedTextField(
-                        value = state.country,
-                        onValueChange = { event.invoke(SearchEvent.ChangeCountry(it))},
+                        value = state.name,
+                        onValueChange = { event.invoke(SearchEvent.ChangeName(it))},
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Done
                         ),
@@ -63,7 +64,7 @@ fun SearchContent(state: SearchState, event: (SearchEvent) -> Unit, navControlle
                     )
             }
             items(state.capitalList){ capital ->
-                Text(text = capital.name)
+                CapitalCard(capital)
             }
         }
     }

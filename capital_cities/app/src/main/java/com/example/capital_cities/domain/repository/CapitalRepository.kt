@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CapitalRepository {
     suspend fun insertCapital(capital: Capital)
-    fun getCapitalsByCountry(country: String): Flow<List<Capital>>
+    fun getCapitalsByName(name: String): Flow<List<Capital>>
     fun getAllCapitals() : Flow<List<Capital>>
 }

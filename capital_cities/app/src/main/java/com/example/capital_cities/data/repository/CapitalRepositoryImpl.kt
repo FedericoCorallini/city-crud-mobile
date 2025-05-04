@@ -16,8 +16,8 @@ class CapitalRepositoryImpl(
         capitalDao.insertCapital(capital = capital.toEntity())
     }
 
-    override fun getCapitalsByCountry(country: String): Flow<List<Capital>> {
-        return capitalDao.getCapitalsByCountry(country).map { it.map { it.toDomain()} }
+    override fun getCapitalsByName(name: String): Flow<List<Capital>> {
+        return capitalDao.getCapitalsByName(name).map { it.map { it.toDomain()} }
     }
 
     override fun getAllCapitals() : Flow<List<Capital>> {
