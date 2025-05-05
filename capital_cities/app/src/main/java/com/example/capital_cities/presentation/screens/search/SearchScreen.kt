@@ -50,12 +50,12 @@ fun SearchContent(state: SearchState, event: (SearchEvent) -> Unit, navControlle
             item {
                     OutlinedTextField(
                         value = state.name,
-                        onValueChange = { event.invoke(SearchEvent.ChangeName(it))},
+                        onValueChange = { event(SearchEvent.ChangeName(it))},
                         keyboardOptions = KeyboardOptions.Default.copy(
                             imeAction = ImeAction.Done
                         ),
                         keyboardActions = KeyboardActions(
-                            onDone = { event.invoke(SearchEvent.Search) }
+                            onDone = { event(SearchEvent.Search) }
                         ),
                         placeholder = { Text("Search capital city...") },
                         modifier = Modifier.fillMaxWidth().padding(8.dp),

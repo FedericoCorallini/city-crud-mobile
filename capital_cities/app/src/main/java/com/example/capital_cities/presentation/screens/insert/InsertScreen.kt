@@ -40,21 +40,21 @@ fun InsertContent(state: InsertState, onEvent: (InsertEvent) -> Unit, navControl
         ) {
             OutlinedTextField(
                 value = state.name,
-                onValueChange = {onEvent.invoke(InsertEvent.ChangeName(it))},
+                onValueChange = {onEvent(InsertEvent.ChangeName(it))},
                 label = { Text(text = "Name") }
             )
             OutlinedTextField(
                 value = state.country,
-                onValueChange = {onEvent.invoke(InsertEvent.ChangeCountry(it))},
+                onValueChange = {onEvent(InsertEvent.ChangeCountry(it))},
                 label = { Text(text = "Country") }
             )
             OutlinedTextField(
                 value = state.population.toString(),
-                onValueChange = {onEvent.invoke(InsertEvent.ChangePopulation(it))},
+                onValueChange = {onEvent(InsertEvent.ChangePopulation(it))},
                 label = { Text(text = "Population") }
             )
             Button(
-                onClick = {onEvent.invoke(InsertEvent.Save)},
+                onClick = {onEvent(InsertEvent.Save)},
                 modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).height(48.dp),
                 shape = RoundedCornerShape(8.dp)
             ) {
