@@ -1,6 +1,6 @@
 package com.example.capital_cities.presentation.screens.home
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -9,11 +9,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -22,7 +23,7 @@ import com.example.capital_cities.presentation.components.CapitalCard
 import com.example.capital_cities.presentation.components.NavBar
 import com.example.capital_cities.presentation.components.TopBar
 import com.example.capital_cities.presentation.navigation.Insert
-import com.example.capital_cities.presentation.theme.Capital_citiesTheme
+import com.example.capital_cities.presentation.theme.CapitalCitiesTheme
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavController) {
@@ -30,20 +31,29 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavCon
 }
 
 @Composable
-fun HomeContent(state: HomeState, navController : NavController) {
+fun HomeContent(state: HomeState, navController: NavController) {
     Scaffold(
-        topBar = { TopBar("Home") },
+        topBar = { TopBar("World Capital Cities", navController) },
         bottomBar = { NavBar(navController = navController) },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {navController.navigate(Insert)},
-                shape = CircleShape
-            ) { Icon(imageVector = Icons.Default.Add,  contentDescription = "") }
+                onClick = { navController.navigate(Insert) },
+                shape = CircleShape,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add city")
+            }
         }
-    ) {
-        LazyColumn(modifier = Modifier.padding(it)) {
-            items(state.capitalList) { item: Capital ->
-                CapitalCard(item)
+    ) { paddingValues ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(state.capitalList) { capital ->
+                CapitalCard(capital)
             }
         }
     }
@@ -52,7 +62,7 @@ fun HomeContent(state: HomeState, navController : NavController) {
 @Preview
 @Composable
 fun PreviewHome() {
-    Capital_citiesTheme(dynamicColor = false) {
+    CapitalCitiesTheme(dynamicColor = false) {
         HomeContent(HomeState(capitalList = listOf(
                 Capital(
                     name = "Buenos Aires",
