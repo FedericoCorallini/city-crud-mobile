@@ -10,13 +10,15 @@ import androidx.compose.ui.unit.dp
 import com.example.capital_cities.domain.model.Capital
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 
 
 @Composable
 fun CapitalCard(
     capital: Capital,
     modifier: Modifier = Modifier,
-    onDeleteClick: ((Capital) -> Unit)? = null
+    onDeleteClick: ((Capital) -> Unit)? = null,
+    onEditClick: ((Capital) -> Unit)? = null
 ) {
     Card(
         modifier = modifier
@@ -38,6 +40,11 @@ fun CapitalCard(
                 if (onDeleteClick != null) {
                     IconButton(onClick = { onDeleteClick(capital) }) {
                         Icon(Icons.Default.Delete, contentDescription = "Eliminar")
+                    }
+                }
+                if (onEditClick != null) {
+                    IconButton(onClick = { onEditClick(capital) }) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit Population")
                     }
                 }
             }

@@ -32,4 +32,8 @@ class CapitalRepositoryImpl(
         capitalDao.deleteAllByCountry(country)
     }
 
+    override suspend fun updatePopulation(id: Int, newPopulation: Long) {
+        capitalDao.updatePopulation(id, newPopulation)
+    }
+
 }

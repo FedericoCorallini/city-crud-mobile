@@ -27,4 +27,7 @@ interface CapitalDao {
 
     @Delete
     suspend fun delete(capital: CapitalEntity)
+
+    @Query("UPDATE capitalentity SET population = :newPopulation WHERE id = :id")
+    suspend fun updatePopulation(id: Int, newPopulation: Long)
 }
