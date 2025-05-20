@@ -53,7 +53,7 @@ fun HomeContent(state: HomeState, navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(state.capitalList) { capital ->
-                CapitalCard(capital)
+                CapitalCard(capital = capital)
             }
         }
     }

@@ -23,4 +23,13 @@ class CapitalRepositoryImpl(
     override fun getAllCapitals() : Flow<List<Capital>> {
         return capitalDao.getAllCapitals().map { it.map { it.toDomain()} }
     }
+
+    override suspend fun deleteCapital(capital: Capital) {
+        capitalDao.delete(capital.toEntity())
+    }
+
+    override suspend fun deleteAllByCountry(country: String) {
+        capitalDao.deleteAllByCountry(country)
+    }
+
 }

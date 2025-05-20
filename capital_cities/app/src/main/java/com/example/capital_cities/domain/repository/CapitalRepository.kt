@@ -7,4 +7,6 @@ interface CapitalRepository {
     suspend fun insertCapital(capital: Capital)
     fun getCapitalsByName(name: String): Flow<List<Capital>>
     fun getAllCapitals() : Flow<List<Capital>>
+    suspend fun deleteCapital(capital: Capital)
+    suspend fun deleteAllByCountry(country: String)
 }

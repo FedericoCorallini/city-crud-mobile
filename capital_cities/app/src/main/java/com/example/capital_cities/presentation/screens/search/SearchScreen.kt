@@ -26,6 +26,10 @@ import com.example.capital_cities.presentation.components.CapitalCard
 import com.example.capital_cities.presentation.components.NavBar
 import com.example.capital_cities.presentation.components.TopBar
 import com.example.capital_cities.presentation.theme.CapitalCitiesTheme
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.TextButton
+
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel(), navController: NavController) {
@@ -62,8 +66,58 @@ fun SearchContent(state: SearchState, onEvent: (SearchEvent) -> Unit, navControl
 
             LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(state.capitalList) { capital ->
-                    CapitalCard(capital)
+                    CapitalCard(
+                        capital = capital,
+                        onDeleteClick = { onEvent(SearchEvent.ShowDeleteDialog(it)) }
+                    )
                 }
+            }
+            state.capitalToDelete?.let { capital ->
+                AlertDialog(
+                    onDismissRequest = { onEvent(SearchEvent.HideDeleteDialog) },
+                    title = { Text("Confirm Delete") },
+                    text = { Text("Are you sure you want to delete ${capital.name}?") },
+                    confirmButton = {
+                        TextButton(onClick = { onEvent(SearchEvent.ConfirmDelete) }) {
+                            Text("Yes")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { onEvent(SearchEvent.HideDeleteDialog) }) {
+                            Text("Cancel")
+                        }
+                    }
+                )
+            }
+            if (state.capitalList.isNotEmpty()) {
+                val country = state.capitalList.first().country
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = { onEvent(SearchEvent.ShowDeleteCountryDialog) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Delete all capitals from $country")
+                }
+            }
+
+            if (state.showDeleteCountryDialog) {
+                AlertDialog(
+                    onDismissRequest = { onEvent(SearchEvent.HideDeleteCountryDialog) },
+                    title = { Text("Confirm deletion") },
+                    text = {
+                        Text("Are you sure you want to delete all capitals from the country ${state.capitalList.firstOrNull()?.country}?")
+                    },
+                    confirmButton = {
+                        TextButton(onClick = { onEvent(SearchEvent.ConfirmDeleteCountry) }) {
+                            Text("Yes")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { onEvent(SearchEvent.HideDeleteCountryDialog) }) {
+                            Text("Cancel")
+                        }
+                    }
+                )
             }
         }
     }
